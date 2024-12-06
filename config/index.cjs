@@ -12,7 +12,7 @@ const USER_CONFIG = {
     "CALLBACK_TEMPLATE_ID":"e6aaIKZwdluotRKixw9f3QLjtk_3rdmhibJuM-1r5Fg",
     "CALLBACK_USERS":[{"name":"自己","id":"owfZP6_KtLtt_HdFzhTqIlhACtUA"}],
     "HeFeng_API": {"key": "db57bc7958df4103985bf42b278d398c"},
-    "TIAN_API": {"key": "15aa98b3097d2a2f3314d557d962039b"},
+    "TIAN_API.key": "key": "15aa98b3097d2a2f3314d557d962039b",
 
     "USERS":[
     {
