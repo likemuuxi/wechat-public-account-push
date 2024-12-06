@@ -17,7 +17,7 @@ const USER_CONFIG = {
     {
       "name":"小楠",
       "id":"owfZP6wAmo7T4iX6AUGIsI6mRPQA",
-      "useTemplateId":"cjHG0pvu7LQLIKqnx3PntM230gP3tQQT36s4x1kS6EA",
+      "useTemplateId":"0zbylnCR3eteoVwITKtLNnCR5pisbmJ7wmroU0r8shA",
       "province":"福建省",
       "city":"厦门市",
       "horoscopeDate":"05-26",
