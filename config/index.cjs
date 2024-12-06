@@ -15,7 +15,7 @@ const USER_CONFIG = {
     {
       "name":"小楠",
       "id":"owfZP6wAmo7T4iX6AUGIsI6mRPQA",
-      "useTemplateId":"YltIjx6yozJKYcKhS-VD44OyoqXVZvh-8YqKTBzwU4o",
+      "useTemplateId":"J4doklXxtPSjBEfDehBPM3R-keixyVoWQ_mt5zjhoL0",
       "province":"福建省",
       "city":"厦门市",
       "horoscopeDate":"05-26",
@@ -29,18 +29,18 @@ const USER_CONFIG = {
           "year":"2025"
         }],
      "customizedDateList":[
-       {"keyword":"相识","date":"2022-09-16"},
-       {"keyword":"相恋","date":"2022-10-09"}]
+       {"keyword":"meet_day","date":"2022-09-16"},
+       {"keyword":"love_day","date":"2022-10-09"}]
     }],
     "SWITCH":{
-    "weather":true,
+      "weather":true,
       "holidaytts":true,
       "CIBA":true,
-      "oneTalk":false,
+      "oneTalk":true,
       "earthyLoveWords":false,
       "momentCopyrighting":false,
       "poisonChickenSoup":false,
-      "poetry":false,
+      "poetry":true,
       "horoscope":false,
       "birthdayMessage":true
   }
