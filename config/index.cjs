@@ -9,13 +9,13 @@ const USER_CONFIG = {
     "APP_ID":"wx72eb1cb4e238912a",
     "APP_SECRET":"a681ffbb7521ac6d7e82ab8878c52019",
     "IS_SHOW_COLOR":true,
-    "CALLBACK_TEMPLATE_ID":"2",
-    "CALLBACK_USERS":[{"name":"自己","id":"1"}],
+    "CALLBACK_TEMPLATE_ID":"e6aaIKZwdluotRKixw9f3QLjtk_3rdmhibJuM-1r5Fg",
+    "CALLBACK_USERS":[{"name":"自己","id":"owfZP6_KtLtt_HdFzhTqIlhACtUA"}],
     "USERS":[
     {
       "name":"小楠",
-      "id":"2",
-      "useTemplateId":"1",
+      "id":"owfZP6wAmo7T4iX6AUGIsI6mRPQA",
+      "useTemplateId":"YltIjx6yozJKYcKhS-VD44OyoqXVZvh-8YqKTBzwU4o",
       "province":"福建省",
       "city":"厦门市",
       "horoscopeDate":"05-26",
