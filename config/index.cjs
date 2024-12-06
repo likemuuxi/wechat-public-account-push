@@ -11,14 +11,13 @@ const USER_CONFIG = {
     "IS_SHOW_COLOR":true,
     "CALLBACK_TEMPLATE_ID":"e6aaIKZwdluotRKixw9f3QLjtk_3rdmhibJuM-1r5Fg",
     "CALLBACK_USERS":[{"name":"自己","id":"owfZP6_KtLtt_HdFzhTqIlhACtUA"}],
-    "HeFeng_API": {"key": "db57bc7958df4103985bf42b278d398c"},
-    "TIAN_API.key": "key": "15aa98b3097d2a2f3314d557d962039b",
+    "TIAN_API": {"key": "15aa98b3097d2a2f3314d557d962039b"},
 
     "USERS":[
     {
       "name":"小楠",
       "id":"owfZP6wAmo7T4iX6AUGIsI6mRPQA",
-      "useTemplateId":"J4doklXxtPSjBEfDehBPM3R-keixyVoWQ_mt5zjhoL0",
+      "useTemplateId":"cjHG0pvu7LQLIKqnx3PntM230gP3tQQT36s4x1kS6EA",
       "province":"福建省",
       "city":"厦门市",
       "horoscopeDate":"05-26",
