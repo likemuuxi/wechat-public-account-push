@@ -39,12 +39,13 @@ const USER_CONFIG = {
       "holidaytts":true,
       "CIBA":true,
       "oneTalk":true,
-      "earthyLoveWords":false,
-      "momentCopyrighting":false,
-      "poisonChickenSoup":false,
+      "earthyLoveWords":true,
+      "momentCopyrighting":true,
+      "poisonChickenSoup":true,
       "poetry":true,
-      "horoscope":false,
-      "birthdayMessage":true
+      "horoscope":true,
+      "birthdayMessage":true,
+      "morningGreeting":true
   }
 }
 
