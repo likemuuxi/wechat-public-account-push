@@ -121,15 +121,18 @@ export const getWeather = async (province, city) => {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).catch((err) => err)
+  }).catch((err) => {
+    console.error('请求失败:', err);  // 捕获请求错误
+    return err;
+  });
 
-  if (res.status === 200 && res.data && res.data.status === 200) {
+  if (res.status === 200 && res.data && res.data.code === '200') {
     const weatherData = res.data.now;  // 获取now部分的数据
     if (!weatherData) {
       console.error('天气情况: 找不到实时天气数据, 获取失败');
       return {};
     }
-    
+  
     const result = {
       // 当前温度
       temperature: weatherData.temp,
@@ -157,13 +160,12 @@ export const getWeather = async (province, city) => {
     
     // 存储到缓存
     RUN_TIME_STORAGE[`${province}_${city}`] = cloneDeep(result);
-    
+  
     // 返回结果
     return result;
-
-  }
-  console.error('天气情况获取失败', res)
-  return {}
+  } else {
+    console.error('天气情况获取失败', res);
+    return {};
 }
 
 /**
