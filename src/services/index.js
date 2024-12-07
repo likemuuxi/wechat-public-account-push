@@ -100,73 +100,66 @@ export const getWeatherIcon = (weather) => {
  * @param {*} city 城市
  */
 export const getWeather = async (province, city) => {
-  if (config.SWITCH && config.SWITCH.weather === false) {
-    return {}
+  if (config?.SWITCH?.weather === false) {
+    return {};
   }
 
   // 读取缓存
-  if (RUN_TIME_STORAGE[`${province}_${city}`]) {
-    console.log(`获取了相同的数据，读取缓存 >>> ${province}_${city}`)
-    return RUN_TIME_STORAGE[`${province}_${city}`]
+  const cachedData = RUN_TIME_STORAGE[`${province}_${city}`];
+  if (cachedData) {
+    console.log(`获取了相同的数据，读取缓存 >>> ${province}_${city}`);
+    return cachedData;
   }
 
-  const cityInfo = getWeatherCityInfo(province, city)
+  const cityInfo = getWeatherCityInfo(province, city);
   if (!cityInfo) {
-    console.error('配置文件中找不到相应的省份或城市')
-    return {}
+    console.error('配置文件中找不到相应的省份或城市');
+    return {};
   }
-  const url = `https://devapi.qweather.com/v7/weather/now?location=101230205&key=db57bc7958df4103985bf42b278d398c`
+
+  const location = getLocationByProvinceCity(province, city); // 替换为适当的函数
+  const url = `https://devapi.qweather.com/v7/weather/now?location=${location}&key=db57bc7958df4103985bf42b278d398c`;
 
   const res = await axios.get(url, {
     headers: {
       'Content-Type': 'application/json',
     },
   }).catch((err) => {
-    console.error('请求失败:', err);  // 捕获请求错误
-    return err;
+    console.error('请求失败:', err);
+    return { status: 'error' };  // 返回一个失败标志
   });
 
-  if (res.status === 200 && res.data && res.data.code === '200') {
-    const weatherData = res.data.now;  // 获取now部分的数据
+  if (res.status === 200 && res.data?.code === '200') {
+    const weatherData = res.data.now;
     if (!weatherData) {
       console.error('天气情况: 找不到实时天气数据, 获取失败');
       return {};
     }
-  
+
     const result = {
-      // 当前温度
       temperature: weatherData.temp,
-      // 体感温度
       feelsLike: weatherData.feelsLike,
-      // 风向
       windDirection: weatherData.windDir,
-      // 风速
       windSpeed: weatherData.windSpeed,
-      // 湿度
       humidity: weatherData.humidity,
-      // 空气质量
       airQuality: weatherData.text,
-      // 风力等级
       windScale: weatherData.windScale,
-      // 云量
       cloud: weatherData.cloud,
-      // 大气压
       pressure: weatherData.pressure,
-      // 可见度
       visibility: weatherData.vis,
-      // 点露温度
-      dewPoint: weatherData.dew
+      dewPoint: weatherData.dew,
     };
-    
+
     // 存储到缓存
-    RUN_TIME_STORAGE[`${province}_${city}`] = cloneDeep(result);
-  
-    // 返回结果
+    RUN_TIME_STORAGE[`${province}_${city}`] = { ...result };  // 使用扩展运算符进行浅拷贝
+
     return result;
   } else {
     console.error('天气情况获取失败', res);
     return {};
-}
+  }
+};
+
 
 /**
  * 金山词霸每日一句
