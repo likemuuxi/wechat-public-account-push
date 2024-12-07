@@ -124,47 +124,43 @@ export const getWeather = async (province, city) => {
   }).catch((err) => err)
 
   if (res.status === 200 && res.data && res.data.status === 200) {
-    const commonInfo = res.data.data
-    const info = commonInfo && commonInfo.forecast && commonInfo.forecast[0]
-    if (!info) {
-      console.error('天气情况: 找不到天气信息, 获取失败')
-      return {}
+    const weatherData = res.data.now;  // 获取now部分的数据
+    if (!weatherData) {
+      console.error('天气情况: 找不到实时天气数据, 获取失败');
+      return {};
     }
-
+    
     const result = {
-      // 湿度
-      shidu: commonInfo.shidu,
-      // PM2.5
-      pm25: commonInfo.pm25,
-      // PM1.0
-      pm10: commonInfo.pm10,
-      // 空气质量
-      quality: commonInfo.quality,
-      // 预防感冒提醒
-      ganmao: commonInfo.ganmao,
-      // 日出时间
-      sunrise: info.sunrise,
-      // 日落时间
-      sunset: info.sunset,
-      // 空气质量指数
-      aqi: info.aqi,
-      // 天气情况
-      weather: info.type,
-      // 最高温度
-      maxTemperature: info.high.replace(/^高温\s*/, ''),
-      // 最低温度
-      minTemperature: info.low.replace(/^低温\s*/, ''),
+      // 当前温度
+      temperature: weatherData.temp,
+      // 体感温度
+      feelsLike: weatherData.feelsLike,
       // 风向
-      windDirection: info.fx,
+      windDirection: weatherData.windDir,
+      // 风速
+      windSpeed: weatherData.windSpeed,
+      // 湿度
+      humidity: weatherData.humidity,
+      // 空气质量
+      airQuality: weatherData.text,
       // 风力等级
-      windScale: info.fl,
-      // 温馨提示
-      notice: info.notice,
-    }
+      windScale: weatherData.windScale,
+      // 云量
+      cloud: weatherData.cloud,
+      // 大气压
+      pressure: weatherData.pressure,
+      // 可见度
+      visibility: weatherData.vis,
+      // 点露温度
+      dewPoint: weatherData.dew
+    };
+    
+    // 存储到缓存
+    RUN_TIME_STORAGE[`${province}_${city}`] = cloneDeep(result);
+    
+    // 返回结果
+    return result;
 
-    RUN_TIME_STORAGE[`${province}_${city}`] = cloneDeep(result)
-
-    return result
   }
   console.error('天气情况获取失败', res)
   return {}
