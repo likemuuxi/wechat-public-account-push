@@ -223,13 +223,13 @@ export const getCIBA = async () => {
  * @returns
  */
 export const getHolidaytts = async () => {
-  if (config.SWITCH && config.SWITCH.wxHolidaytts === false) {
+  if (config.SWITCH && config.SWITCH.holidaytts === false) {
     return null
   }
 
   const url = 'https://wangxinleo.cn/api/wx-push/holiday/getHolidaytts'
   const res = await axios.get(url).catch((err) => err)
-  let data = DEFAULT_OUTPUT.wxHolidaytts
+  let data = DEFAULT_OUTPUT.holidaytts
 
   if (res.status === 200 && res.data && res.data.code === 0) {
     data = res.data.tts
@@ -259,7 +259,7 @@ export const getHolidaytts = async () => {
  * @returns
  */
 export const getOneTalk = async (type) => {
-  if (config.SWITCH && config.SWITCH.wxOneTalk === false) {
+  if (config.SWITCH && config.SWITCH.oneTalk === false) {
     return {}
   }
 
