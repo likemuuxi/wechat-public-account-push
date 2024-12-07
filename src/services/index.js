@@ -16,7 +16,7 @@ import {
 } from '../utils/index.js'
 import { selfDayjs, timeZone } from '../utils/set-def-dayjs.js'
 
-axios.defaults.timeout = 20000
+axios.defaults.timeout = 10000
 
 // 使用单空行还是双空行
 const getLB = () => {
@@ -100,76 +100,75 @@ export const getWeatherIcon = (weather) => {
  * @param {*} city 城市
  */
 export const getWeather = async (province, city) => {
-  if (config.SWITCH && config.SWITCH.weather === false) {
-    return {}
+  console.log('【数据获取】开始');
+
+  if (config?.SWITCH?.weather === false) {
+    return {};
   }
 
   // 读取缓存
-  if (RUN_TIME_STORAGE[`${province}_${city}`]) {
-    console.log(`获取了相同的数据，读取缓存 >>> ${province}_${city}`)
-    return RUN_TIME_STORAGE[`${province}_${city}`]
+  const cachedData = RUN_TIME_STORAGE[`${province}_${city}`];
+  if (cachedData) {
+    console.log(`获取了相同的数据，读取缓存 >>> ${province}_${city}`);
+    console.log('【数据获取】结束');
+    return cachedData;
   }
 
-  const cityInfo = getWeatherCityInfo(province, city)
+  const cityInfo = getWeatherCityInfo(province, city);
+  console.log('城市信息:', cityInfo);
   if (!cityInfo) {
-    console.error('配置文件中找不到相应的省份或城市')
-    return {}
+    console.error('配置文件中找不到相应的省份或城市');
+    console.log('【数据获取】结束');
+    return {};
   }
-  const url = `http://t.weather.itboy.net/api/weather/city/${cityInfo.city_code}`
 
+  const url = `https://devapi.qweather.com/v7/weather/now?location=101230205&key=db57bc7958df4103985bf42b278d398c`
   const res = await axios.get(url, {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).catch((err) => err)
+  }).catch((err) => {
+    console.error('请求失败:', err);
+    return { status: 'error' };
+  });
 
-  if (res.status === 200 && res.data && res.data.status === 200) {
-    const commonInfo = res.data.data
-    const info = commonInfo && commonInfo.forecast && commonInfo.forecast[0]
-    if (!info) {
-      console.error('天气情况: 找不到天气信息, 获取失败')
-      return {}
+  console.log('请求响应:', res);
+
+  if (res.status === 200 && res.data?.code === '200') {
+    const weatherData = res.data.now;
+    console.log('天气数据:', weatherData);
+    if (!weatherData) {
+      console.error('天气情况: 找不到实时天气数据, 获取失败');
+      console.log('【数据获取】结束');
+      return {};
     }
 
     const result = {
-      // 湿度
-      shidu: commonInfo.shidu,
-      // PM2.5
-      pm25: commonInfo.pm25,
-      // PM10
-      pm10: commonInfo.pm10,
-      // 空气质量
-      quality: commonInfo.quality,
-      // 预防感冒提醒
-      ganmao: commonInfo.ganmao,
-      // 日出时间
-      sunrise: info.sunrise,
-      // 日落时间
-      sunset: info.sunset,
-      // 空气质量指数
-      aqi: info.aqi,
-      // 天气情况
-      weather: info.type,
-      // 最高温度
-      maxTemperature: info.high.replace(/^高温\s*/, ''),
-      // 最低温度
-      minTemperature: info.low.replace(/^低温\s*/, ''),
-      // 风向
-      windDirection: info.fx,
-      // 风力等级
-      windScale: info.fl,
-      // 温馨提示
-      notice: info.notice,
-    }
+      weather: weatherData.temp,
+      feelsLike: weatherData.feelsLike,
+      windDirection: weatherData.windDir,
+      windSpeed: weatherData.windSpeed,
+      humidity: weatherData.humidity,
+      airQuality: weatherData.text,
+      windScale: weatherData.windScale,
+      cloud: weatherData.cloud,
+      pressure: weatherData.pressure,
+      visibility: weatherData.vis,
+      dewPoint: weatherData.dew,
+    };
 
-    RUN_TIME_STORAGE[`${province}_${city}`] = cloneDeep(result)
+    // 存储到缓存
+    RUN_TIME_STORAGE[`${province}_${city}`] = { ...result };
+    console.log('存储到缓存:', result);
 
-    return result
+    console.log('【数据获取】结束');
+    return result;
+  } else {
+    console.error('天气情况获取失败', res);
+    console.log('【数据获取】结束');
+    return {};
   }
-
-  console.error('天气情况获取失败', res)
-  return {}
-}
+};
 
 
 /**
