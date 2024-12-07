@@ -117,8 +117,7 @@ export const getWeather = async (province, city) => {
     return {};
   }
 
-  const location = getLocationByProvinceCity(province, city); // 替换为适当的函数
-  const url = `https://devapi.qweather.com/v7/weather/now?location=${location}&key=db57bc7958df4103985bf42b278d398c`;
+  const url = `https://devapi.qweather.com/v7/weather/now?location=101230205&key=db57bc7958df4103985bf42b278d398c`
 
   const res = await axios.get(url, {
     headers: {
