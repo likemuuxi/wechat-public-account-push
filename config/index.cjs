@@ -17,7 +17,7 @@ const USER_CONFIG = {
     {
       "name":"小楠",
       "id":"owfZP6wAmo7T4iX6AUGIsI6mRPQA",
-      "useTemplateId":"hUlabHjXsog6vRdcUbUDlXu4AfWnoYrfGhoactqmyDo",
+      "useTemplateId":"fywhfummSEvw3uU6oBDfJSFA4GkH102qSqJw0Xq_glQ",
       "province":"福建省",
       "city":"厦门市",
       "horoscopeDate":"05-26",
@@ -39,7 +39,6 @@ const USER_CONFIG = {
       "holidaytts":true,
       "CIBA":false,
       "oneTalk":true,
-      "wxNoteCh":true,
       "earthyLoveWords":false,
       "momentCopyrighting":false,
       "poisonChickenSoup":false,
