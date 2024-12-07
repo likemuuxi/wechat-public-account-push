@@ -37,13 +37,13 @@ const USER_CONFIG = {
     "SWITCH":{
       "weather":true,
       "holidaytts":true,
-      "CIBA":true,
+      "CIBA":false,
       "oneTalk":true,
-      "earthyLoveWords":true,
-      "momentCopyrighting":true,
-      "poisonChickenSoup":true,
-      "poetry":true,
-      "horoscope":true,
+      "earthyLoveWords":false,
+      "momentCopyrighting":false,
+      "poisonChickenSoup":false,
+      "poetry":false,
+      "horoscope":false,
       "birthdayMessage":true,
       "morningGreeting":true
   }
