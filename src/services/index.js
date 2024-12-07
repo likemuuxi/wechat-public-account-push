@@ -100,6 +100,8 @@ export const getWeatherIcon = (weather) => {
  * @param {*} city 城市
  */
 export const getWeather = async (province, city) => {
+  console.log('【数据获取】开始');
+
   if (config?.SWITCH?.weather === false) {
     return {};
   }
@@ -108,16 +110,21 @@ export const getWeather = async (province, city) => {
   const cachedData = RUN_TIME_STORAGE[`${province}_${city}`];
   if (cachedData) {
     console.log(`获取了相同的数据，读取缓存 >>> ${province}_${city}`);
+    console.log('【数据获取】结束');
     return cachedData;
   }
 
   const cityInfo = getWeatherCityInfo(province, city);
+  console.log('城市信息:', cityInfo);
   if (!cityInfo) {
     console.error('配置文件中找不到相应的省份或城市');
+    console.log('【数据获取】结束');
     return {};
   }
 
-  const url = `https://devapi.qweather.com/v7/weather/now?location=101230205&key=db57bc7958df4103985bf42b278d398c`
+  const location = getLocationByProvinceCity(province, city);
+  const url = `https://devapi.qweather.com/v7/weather/now?location=${location}&key=db57bc7958df4103985bf42b278d398c`;
+  console.log('请求URL:', url);
 
   const res = await axios.get(url, {
     headers: {
@@ -125,13 +132,17 @@ export const getWeather = async (province, city) => {
     },
   }).catch((err) => {
     console.error('请求失败:', err);
-    return { status: 'error' };  // 返回一个失败标志
+    return { status: 'error' };
   });
+
+  console.log('请求响应:', res);
 
   if (res.status === 200 && res.data?.code === '200') {
     const weatherData = res.data.now;
+    console.log('天气数据:', weatherData);
     if (!weatherData) {
       console.error('天气情况: 找不到实时天气数据, 获取失败');
+      console.log('【数据获取】结束');
       return {};
     }
 
@@ -150,11 +161,14 @@ export const getWeather = async (province, city) => {
     };
 
     // 存储到缓存
-    RUN_TIME_STORAGE[`${province}_${city}`] = { ...result };  // 使用扩展运算符进行浅拷贝
+    RUN_TIME_STORAGE[`${province}_${city}`] = { ...result };
+    console.log('存储到缓存:', result);
 
+    console.log('【数据获取】结束');
     return result;
   } else {
     console.error('天气情况获取失败', res);
+    console.log('【数据获取】结束');
     return {};
   }
 };
