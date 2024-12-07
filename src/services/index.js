@@ -136,7 +136,7 @@ export const getWeather = async (province, city) => {
       shidu: commonInfo.shidu,
       // PM2.5
       pm25: commonInfo.pm25,
-      // PM1.0
+      // PM10
       pm10: commonInfo.pm10,
       // 空气质量
       quality: commonInfo.quality,
@@ -166,9 +166,11 @@ export const getWeather = async (province, city) => {
 
     return result
   }
+
   console.error('天气情况获取失败', res)
   return {}
 }
+
 
 /**
  * 金山词霸每日一句
