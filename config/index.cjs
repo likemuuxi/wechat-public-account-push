@@ -11,7 +11,7 @@ const USER_CONFIG = {
     "IS_SHOW_COLOR":true,
     "CALLBACK_TEMPLATE_ID":"e6aaIKZwdluotRKixw9f3QLjtk_3rdmhibJuM-1r5Fg",
     "CALLBACK_USERS":[{"name":"自己","id":"owfZP6_KtLtt_HdFzhTqIlhACtUA"}],
-    "TIAN_API": {"key": "15aa98b3097d2a2f3314d557d962039b"},
+    "TIAN_API.key": "15aa98b3097d2a2f3314d557d962039b",
 
     "USERS":[
     {
