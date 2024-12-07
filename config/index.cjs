@@ -37,8 +37,11 @@ const USER_CONFIG = {
     "SWITCH":{
       "weather":true,
       "holidaytts":true,
+      "wxHolidaytts":true,
       "CIBA":false,
       "oneTalk":true,
+      "wxOneTalk":true,
+      "wxNoteCh":true,
       "earthyLoveWords":false,
       "momentCopyrighting":false,
       "poisonChickenSoup":false,
